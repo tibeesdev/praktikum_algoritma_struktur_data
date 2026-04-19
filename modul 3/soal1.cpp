@@ -84,7 +84,7 @@ int main()
                 break;
             default:
                 cout<<"\nTERIMA KASIH"<<endl;
-                cout<<"Program was made by Nama (NIM)."<<endl;
+                cout<<"Program was made by Ahmad Tibrizi (2510817210027)."<<endl;
         }
 
         cout<<"\nPress any key to continue!"<<endl;
