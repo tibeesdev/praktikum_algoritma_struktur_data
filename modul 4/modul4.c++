@@ -8,7 +8,7 @@ typedef struct TNode {
     string data;
     TNode *next;
     TNode *prev;
-}
+};
 
 TNode *head, *tail;
 
@@ -18,11 +18,11 @@ string dataBaru;
 
 void initH();
 void initHT();
-int isEmpty();
+int isEmptyH();
 int isEmptyHT();
 
 void tambahDepanH();
-void tambahDepanHT():
+void tambahDepanHT();
 void tambahBelakangH();
 void tambahBelakangHT();
 void hapusDepanH();
@@ -161,26 +161,26 @@ int isEmptyHT(){
 
 void tambahDepanH(){
     cout<<"Masukkan data : ";
-
-
-
-
-
-
-
-
-
-
-
-
-
-    cout << "Data \"<<dataBaru<<"\" berhasil dimasukkan di bagian depan.";
+    cin>>dataBaru;
+    TNode *baru;
+    baru = new TNode;
+    baru->data = dataBaru;
+    baru->next = NULL;
+    baru->prev = NULL;
+    if(isEmptyH() == 1){
+        head = baru;
+    } else {
+        baru->next = head;
+        head->prev = baru;
+        head = baru;
+    }
+    cout << "Data \""<<dataBaru<<"\" berhasil dimasukkan di bagian depan.";
 }
 
 void tambahDepanHT() {
     cout<<"Masukkan data : ";
     cin>>dataBaru;
-    Tnode *baru;
+    TNode *baru;
     baru = new TNode;
     baru->data = dataBaru;
     baru->next = NULL;
@@ -202,7 +202,7 @@ void tambahBelakangH(){
     TNode *baru, *bantu;
     baru = new TNode;
     baru->data = dataBaru;
-    bary->next = NULL;
+    baru->next = NULL;
     baru->prev = NULL;
     if (isEmptyH() == 1){
         head = baru;
@@ -213,8 +213,8 @@ void tambahBelakangH(){
         }
         bantu->next = baru;
         baru->prev = bantu;
-        }
-        cout << "Data \""<<dataBaru<<"\" berhasil dimasukkan di bagian belakang.";
+    }
+    cout << "Data \""<<dataBaru<<"\" berhasil dimasukkan di bagian belakang.";
 }
     
 void tambahBelakangHT(){
@@ -223,7 +223,7 @@ void tambahBelakangHT(){
     TNode *baru;
     baru = new TNode;
     baru->data = dataBaru;
-    bary->next = NULL;
+    baru->next = NULL;
     baru->prev = NULL;
     if (isEmptyHT() == 1){
         head = baru;
@@ -232,9 +232,9 @@ void tambahBelakangHT(){
         tail->next = baru;
         baru->prev = tail;
         tail = baru;
-        }
-        cout << "Data \""<<dataBaru<<"\" berhasil dimasukkan di bagian belakang.";
     }
+    cout << "Data \""<<dataBaru<<"\" berhasil dimasukkan di bagian belakang.";
+}
 
 void tampilkanH(){
     TNode *bantu;
@@ -257,39 +257,99 @@ void tampilkanHT() {
             bantu = bantu->next;
         }
         cout<<endl;
-    } else cout<<"Tidak terdapat data pada Linked List"    
+    } else cout<<"Tidak terdapat data pada Linked List";  
 }
 
 void hapusDepanH() {
     TNode *hapus;
-    String data
+    string data;
     if (isEmptyH() == 0) {
         hapus = head;
         data = hapus->data;
-        if (had->next != NULL){
+        if (head->next != NULL){
             head = head->next;
             head->prev = NULL;
         } else {
             initH();
         }
-        delete hapus:
+        delete hapus;
         cout<<"Data\""<<data<<"\" yang berada di depan telah berhasil dihapus.";
     } else cout<<"Tidak terdapat data pada linked list";
 }
 
-void hapusDepanHR() {
+void hapusDepanHT() {
     TNode *hapus;
-    String data
-    if (isEmptyH() == 0) {
+    string data;
+    if (isEmptyHT() == 0) {
         hapus = head;
         data = hapus->data;
-    }if (head->next !- NULL){
-        head = had->next;
-        head->prev = Null
-    } else {
-        initHT();
-    }
-    delete hapus;
-    cout<<Data\"data\ "
+        if (head->next != NULL){
+            head = head->next;
+            head->prev = NULL;
+        } else {
+            initHT();
+        }
+        delete hapus;
+        cout<<"Data\""<<data<<"\" yang berada di depan telah berhasil dihapus.";
     } else cout<<"Tidak terdapat data pada Linked List";
+}
+
+void hapusBelakangH(){
+    TNode *hapus;
+    string data;
+    if (isEmptyH() == 0){
+        hapus = head;
+        while (hapus->next != NULL){
+            hapus = hapus->next;
+        }
+        data = hapus->data;
+        if (head->next != NULL){
+            hapus->prev->next = NULL;
+        } else {
+            initH();
+        }
+        delete hapus;
+        cout<<"Data \""<<data<<"\" yang berada di belakang telah berhasil dihapus.";
+    }else cout<<"Tidak terdapat data pada Linked List"; 
+}
+
+void hapusBelakangHT(){
+    TNode *hapus;
+    string data;
+    if (isEmptyHT() == 0){
+        hapus = tail;
+        data = hapus->data;
+        if (head->next != NULL){
+            tail = tail->prev;
+            tail->next = NULL;
+        } else {
+            initHT();
+        }
+        delete hapus;
+        cout<<"Data \""<<data<<"\" yang berada di belakang telah berhasil dihapus.";
+    } else cout<<"Tidak terdapat data pada Linked List";  
+}
+
+void clearH(){
+    TNode *bantu, *hapus;
+    bantu = head;
+    while (bantu != NULL){
+        hapus = bantu;
+        bantu = bantu->next;
+        delete hapus;
+    }
+    initH();
+    cout<<"Seluruh data pada Linked List telah dibersihkan.";
+}
+
+void clearHT(){
+    TNode *bantu, *hapus;
+    bantu = head;
+    while (bantu != NULL){
+        hapus = bantu;
+        bantu = bantu->next;
+        delete hapus;
+    }
+    initHT();
+    cout<<"Seluruh data pada Linked List telah dibersihkan.";
 }
