@@ -156,11 +156,36 @@ void quickSortCall(){
     }
 }
 
+// bubble sort
+void bubbleSort(){
+    string nim;
+    cout << "Masukkan NIM: ";
+    getline(cin, nim);
+
+    if (!nim.empty()){
+        int n = nim.length();
+
+        for (int i = 0; i < n - 1; i++){
+            for (int j = 0; j < n - i - 1 ;j++){
+                if (nim[j] > nim [j+1]){
+                    char temp = nim[j];
+                    nim[j] = nim[j+1];
+                    nim[j+1] = temp;
+                }
+            }
+        }
+        cout << "Hasil Bubble Sort NIM: " << nim <<endl;
+    }else {
+        cout << "NIM Tidak Boleh Kosong!" << endl;
+    }
+}
+
 int main(){
     //insertionSort();
     //mergeCall();
     //shellSort();
-    quickSortCall();
+    //quickSortCall();
+    bubbleSort();
 
 }
 
