@@ -180,12 +180,95 @@ void bubbleSort(){
     }
 }
 
-int main(){
-    //insertionSort();
-    //mergeCall();
-    //shellSort();
-    //quickSortCall();
-    bubbleSort();
+// selection
+void selectionSort(){
+    string nim;
+    cout << "Masukkan NIM: ";
+    getline(cin, nim);
 
+    if (!nim.empty()) {
+        int n = nim.length();
+
+        for (int i = 0; i < n -1; i++){
+
+            int minIdx = i;
+            for (int j = i +1; j < n; j++){
+                if (nim[j] < nim[minIdx]){
+                    minIdx = j;
+                }
+            }
+            if (minIdx != i){
+                char temp = nim[i];
+                nim[i] = nim[minIdx];
+                nim[minIdx] = temp;
+            }
+        }
+        cout << "Hasil Selection Sort NIM: " << nim << endl;
+    } else {
+        cout << "NIM Tidak Boleh Kosongg!" << endl;
+    }
+}
+
+int main(){
+    int menu;
+
+    do {
+        cout << "\n-------------------------------" <<endl;
+        cout << "|           SORTING           |" <<endl;
+        cout << "-------------------------------" <<endl;
+        cout << "1. Insertion Sort" <<endl;
+        cout << "2. Merge Sort" <<endl;
+        cout << "3. Shell Sort" <<endl;
+        cout << "4. Quick Sort" <<endl;
+        cout << "5. Bubble Sort" <<endl;
+        cout << "6. Selection Sort" <<endl;
+        cout << "7. Exit Sort" <<endl;
+        cout << "-------------------------------" <<endl;
+        cout << "Masukkan Pilihan : ";
+        
+        if (!(cin >> menu)) {
+            cin.clear(); 
+            cin.ignore(1000, '\n');
+            cout << "Input harus berupa angka!" << endl;
+            continue;
+        }
+
+        cin.ignore(); 
+        switch(menu){
+            case 1:
+                insertionSort();
+                break;
+            case 2:
+                mergeCall();
+                break;
+            case 3:
+                shellSort();
+                break;
+            case 4:
+                quickSortCall();
+                break;
+            case 5:
+                bubbleSort();
+                break;
+            case 6:
+                selectionSort();
+                break;
+            case 7:
+                cout << "\nTERIMA KASIH" << endl;
+                break;
+            default:
+                cout << "Pilihan tidak tersedia!" << endl;
+                break;
+        }
+
+        if (menu != 7) {
+            cout << "\nTekan Enter untuk kembali ke menu...";
+            cin.get(); 
+            system("cls");
+        }
+
+    } while (menu != 7);
+
+    return 0;
 }
 
