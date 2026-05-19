@@ -3,7 +3,6 @@
 
 using namespace std;
 
-// insertion
 void insertionSort(){
     string nama;
     cout << "Masukkan Nama: ";
@@ -30,7 +29,6 @@ void insertionSort(){
     }
 }
 
-//merge
 void merge(string &nama, int left, int mid, int right){
     int n1 = mid - left + 1;
     int n2 = right - mid;
@@ -86,7 +84,6 @@ void mergeCall(){
     }
 }
 
-//shell
 void shellSort(){
     string nama;
     cout << "Masukkan Nama: ";
@@ -113,7 +110,6 @@ void shellSort(){
     }
 }
 
-// quicksort
 void swap(char &a, char &b){
     char temp = a;
     a= b;
@@ -156,7 +152,6 @@ void quickSortCall(){
     }
 }
 
-// bubble sort
 void bubbleSort(){
     string nim;
     cout << "Masukkan NIM: ";
@@ -180,7 +175,6 @@ void bubbleSort(){
     }
 }
 
-// selection
 void selectionSort(){
     string nim;
     cout << "Masukkan NIM: ";
@@ -211,7 +205,6 @@ void selectionSort(){
 
 int main(){
     int menu;
-
     do {
         cout << "\n-------------------------------" <<endl;
         cout << "|           SORTING           |" <<endl;
@@ -232,7 +225,6 @@ int main(){
             cout << "Input harus berupa angka!" << endl;
             continue;
         }
-
         cin.ignore(); 
         switch(menu){
             case 1:
@@ -271,4 +263,3 @@ int main(){
 
     return 0;
 }
-
