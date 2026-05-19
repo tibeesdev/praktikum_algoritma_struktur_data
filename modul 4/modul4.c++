@@ -136,6 +136,7 @@ int main()
         } while (pil<7);   
     } else {
         cout<<"\nTERIMA KASIH"<<endl;
+        cout<<"Program was made by Ahnmad Tibrizi (2510817210027)."<<endl;
         cout<<"Program was made by Ahmad Tibrizi (2510817210027)."<<endl;
     }
 }
