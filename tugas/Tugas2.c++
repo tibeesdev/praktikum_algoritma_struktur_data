@@ -1,6 +1,8 @@
 #include <conio.h>
 #include <iostream>
 #include <stdlib.h>
+#include <sstream>
+#include <vector>
 
 using namespace std;
 
@@ -55,8 +57,10 @@ int main()
             cout<<"3. Tampilkan Data"<<endl;
             cout<<"4. Hapus Depan"<<endl;
             cout<<"5. Hapus Belakang"<<endl;
-            cout<<"6. Reset"<<endl;
-            cout<<"7. Kembali ke Menu"<<endl;
+            cout<<"6. Hapus Target"<<endl;
+            cout<<"7. Reset"<<endl;
+            cout<<"8. Reset Selang Seling"<<endl;
+            cout<<"9. Kembali ke Menu"<<endl;
             cout<<"Pilihan : "<<endl;
             cin>>pilihan;
             pil=atoi(pilihan);
@@ -78,7 +82,13 @@ int main()
                 hapusBelakangH();
                 break;
             case 6:
+                hapusTargetH();
+                break;
+            case 7:
                 clearH();
+                break;
+            case 8:
+                clearSelangSelingH();
                 break;
             default:
                 system("cls");
@@ -89,7 +99,7 @@ int main()
             getch();
             system("cls");
 
-        } while (pil<7);
+        } while (pil<9);
     } else if (menu == 2){
         do {
             cout<<"Double Linked List Non Circular (DLLNC) (Head dan Tail)"<<endl;
@@ -99,8 +109,10 @@ int main()
             cout<<"3. Tampilkan Data"<<endl;
             cout<<"4. Hapus Depan"<<endl;
             cout<<"5. Hapus Belakang"<<endl;
-            cout<<"6. Reset"<<endl;
-            cout<<"7. Kembali ke Menu"<<endl;
+            cout<<"6. Hapus Target"<<endl;
+            cout<<"7. Reset"<<endl;
+            cout<<"8. Reset Selang Seling"<<endl;
+            cout<<"9. Kembali ke Menu"<<endl;
             cout<<"Pilihan : "<<endl;
             cin>>pilihan;
             pil=atoi(pilihan);
@@ -122,7 +134,13 @@ int main()
                 hapusBelakangHT();
                 break;
             case 6:
+                hapusTargetHT();
+                break;
+            case 7:
                 clearHT();
+                break;
+            case 8:
+                clearSelangSelingHT();
                 break;
             default:
                 system("cls");
@@ -133,11 +151,10 @@ int main()
             getch();
             system("cls");
 
-        } while (pil<7);   
+        } while (pil<9);   
     } else {
         cout<<"\nTERIMA KASIH"<<endl;
         cout<<"Program was made by Ahnmad Tibrizi (2510817210027)."<<endl;
-        cout<<"Program was made by Ahmad Tibrizi (2510817210027)."<<endl;
     }
 }
 
@@ -161,80 +178,151 @@ int isEmptyHT(){
 }
 
 void tambahDepanH(){
-    cout<<"Masukkan data : ";
-    cin>>dataBaru;
-    TNode *baru;
-    baru = new TNode;
-    baru->data = dataBaru;
-    baru->next = NULL;
-    baru->prev = NULL;
-    if(isEmptyH() == 1){
-        head = baru;
-    } else {
-        baru->next = head;
-        head->prev = baru;
-        head = baru;
+    string baris;
+    cout<<"Masukkan data (pisahkan dengan spasi) : ";
+    cin.ignore();
+    getline(cin, baris);
+
+    istringstream iss(baris);
+    vector<string> tokens;
+    string token;
+    while(iss >> token){
+        tokens.push_back(token);
     }
-    cout << "Data \""<<dataBaru<<"\" berhasil dimasukkan di bagian depan.";
+
+    if(tokens.empty()){
+        cout<<"Tidak ada data yang dimasukkan." <<endl;
+        return;
+    }
+
+    for(int i = (int)tokens.size() - 1; i >= 0; i--){
+        TNode *baru;
+        baru = new TNode;
+        baru->data = tokens[i];
+        baru->next = NULL;
+        baru->prev = NULL;
+        if(isEmptyH() == 1){
+            head = baru;
+        } else {
+            baru->next = head;
+            head->prev = baru;
+            head = baru;
+        }
+    }
+
+    cout << "Data \""<<baris<<"\" berhasil dimasukkan di bagian depan.";
 }
 
 void tambahDepanHT() {
-    cout<<"Masukkan data : ";
-    cin>>dataBaru;
-    TNode *baru;
-    baru = new TNode;
-    baru->data = dataBaru;
-    baru->next = NULL;
-    baru->prev = NULL;
-    if(isEmptyHT() == 1){
-        head = baru;
-        tail = baru;
-    } else {
-        baru->next = head;
-        head->prev = baru;
-        head = baru;
-    }
-    cout << "Data \""<<dataBaru<<"\" berhasil dimasukkan di bagian depan.";
-}
+    string baris;
+    cout << "Masukkan data (pisahkan dengan spasi) : ";
+    cin.ignore(); 
+    getline(cin, baris);
 
-void tambahBelakangH(){
-    cout<<"Masukkan data : ";
-    cin>>dataBaru;
-    TNode *baru, *bantu;
-    baru = new TNode;
-    baru->data = dataBaru;
-    baru->next = NULL;
-    baru->prev = NULL;
-    if (isEmptyH() == 1){
-        head = baru;
-    } else {
-        bantu = head;
-        while (bantu->next != NULL){
-            bantu = bantu->next;
-        }
-        bantu->next = baru;
-        baru->prev = bantu;
+    istringstream iss(baris);
+    vector<string> tokens;
+    string token;
+    while(iss >> token) {
+        tokens.push_back(token);
     }
-    cout << "Data \""<<dataBaru<<"\" berhasil dimasukkan di bagian belakang.";
+
+    if(tokens.empty()) {
+        cout << "Tidak ada data yang dimasukkan." << endl;
+        return;
+    }
+
+    for(int i = (int)tokens.size() - 1; i >= 0; i--) {
+        TNode *baru = new TNode;
+        baru->data = tokens[i];
+        baru->next = NULL;
+        baru->prev = NULL;
+
+        if(isEmptyHT() == 1) {
+            head = baru;
+            tail = baru; 
+        } else {
+            baru->next = head; 
+            head->prev = baru;
+            head = baru;      
+        }
+    }
+
+    cout << "Data \"" << baris << "\" berhasil dimasukkan di bagian depan." << endl;
+}
+void tambahBelakangH(){
+    string baris;
+    cout << "Masukkan data (pisahkan dengan spasi) : ";
+    cin.ignore(); 
+    getline(cin, baris);
+
+    istringstream iss(baris);
+    vector<string> tokens;
+    string token;
+    while(iss >> token){
+        tokens.push_back(token);
+    }
+
+    if(tokens.empty()){
+        cout << "Tidak ada data yang dimasukkan." << endl;
+        return;
+    }
+
+    for(int i = 0; i < (int)tokens.size(); i++){
+        TNode *baru = new TNode;
+        baru->data = tokens[i];
+        baru->next = NULL;
+        baru->prev = NULL;
+
+        if (isEmptyH() == 1){
+            head = baru;
+        } else {
+            TNode *bantu = head;
+            while (bantu->next != NULL){
+                bantu = bantu->next;
+            }
+            bantu->next = baru;
+            baru->prev = bantu;
+        }
+    }
+    
+    cout << "Data \"" << baris << "\" berhasil dimasukkan di bagian belakang." << endl;
 }
     
 void tambahBelakangHT(){
-    cout<<"Masukkan data : ";
-    cin>>dataBaru;
-    TNode *baru;
-    baru = new TNode;
-    baru->data = dataBaru;
-    baru->next = NULL;
-    baru->prev = NULL;
-    if (isEmptyHT() == 1){
-        head = baru;
-        tail = baru;
-    } else {
-        tail->next = baru;
-        baru->prev = tail;
-        tail = baru;
+    string baris;
+    cout << "Masukkan data (pisahkan dengan spasi) : ";
+    cin.ignore(); 
+    getline(cin, baris);
+
+    istringstream iss(baris);
+    vector<string> tokens;
+    string token;
+    while(iss >> token){
+        tokens.push_back(token);
     }
-    cout << "Data \""<<dataBaru<<"\" berhasil dimasukkan di bagian belakang.";
+
+    if(tokens.empty()){
+        cout << "Tidak ada data yang dimasukkan." << endl;
+        return;
+    }
+
+    for(int i = 0; i < (int)tokens.size(); i++){
+        TNode *baru = new TNode;
+        baru->data = tokens[i];
+        baru->next = NULL;
+        baru->prev = NULL;
+
+        if (isEmptyHT() == 1){
+            head = baru;
+            tail = baru; 
+        } else {
+            tail->next = baru; 
+            baru->prev = tail; 
+            tail = baru;      
+        }
+    }
+
+    cout << "Data \"" << baris << "\" berhasil dimasukkan di bagian belakang." << endl;
 }
 
 void tampilkanH(){
@@ -259,6 +347,102 @@ void tampilkanHT() {
         }
         cout<<endl;
     } else cout<<"Tidak terdapat data pada Linked List";  
+}
+
+void hapusTargetH() {
+    if (isEmptyH() == 1) {
+        cout << "Tidak terdapat data pada linked list." << endl; [cite: 14]
+        return;
+    }
+
+    string target;
+    cout << "Masukkan data target yang ingin dihapus : ";
+    cin >> target;
+
+    TNode *bantu = head;
+    bool ditemukan = false;
+
+    while (bantu != NULL) {
+        TNode *nextNode = bantu->next; 
+
+        if (bantu->data == target) {
+            ditemukan = true;
+            TNode *hapus = bantu;
+
+            if (hapus == head) {
+                head = head->next;
+                if (head != NULL) {
+                    head->prev = NULL;
+                }
+            } 
+            else {
+                hapus->prev->next = hapus->next;
+                if (hapus->next != NULL) {
+                    hapus->next->prev = hapus->prev;
+                }
+            }
+            delete hapus;
+            cout << "Data \"" << target << "\" berhasil dihapus." << endl;
+        }
+        bantu = nextNode; 
+    }
+
+    if (!ditemukan) {
+        cout << "Data target \"" << target << "\" tidak ditemukan di dalam list!" << endl; [cite: 14]
+    }
+}
+
+void hapusTargetHT() {
+    if (isEmptyHT() == 1) {
+        cout << "Tidak terdapat data pada linked list." << endl;
+        return;
+    }
+
+    string target;
+    cout << "Masukkan data target yang ingin dihapus : ";
+    cin >> target;
+
+    TNode *bantu = head;
+    bool ditemukan = false;
+
+    while (bantu != NULL) {
+        TNode *nextNode = bantu->next;
+
+        if (bantu->data == target) {
+            ditemukan = true;
+            TNode *hapus = bantu;
+
+            if (hapus == head && hapus == tail) {
+                head = NULL;
+                tail = NULL;
+            } 
+            else if (hapus == head) {
+                head = head->next;
+                if (head != NULL) {
+                    head->prev = NULL;
+                }
+            } 
+            else if (hapus == tail) {
+                tail = tail->prev;
+                if (tail != NULL) {
+                    tail->next = NULL;
+                }
+            } 
+            else {
+                hapus->prev->next = hapus->next;
+                hapus->next->prev = hapus->prev;
+            }
+
+            delete hapus;
+            cout << "Data \"" << target << "\" berhasil dihapus." << endl;
+        }
+
+        bantu = nextNode;
+    }
+
+    if (!ditemukan) {
+        cout << "Data target \"" << target << "\" tidak ditemukan di dalam list!" << endl;
+    }
 }
 
 void hapusDepanH() {
@@ -295,40 +479,176 @@ void hapusDepanHT() {
     } else cout<<"Tidak terdapat data pada Linked List";
 }
 
-void hapusBelakangH(){
-    TNode *hapus;
-    string data;
-    if (isEmptyH() == 0){
-        hapus = head;
-        while (hapus->next != NULL){
-            hapus = hapus->next;
+void hapusBelakangH() {
+    if (isEmptyH() == 1) {
+        cout << "Tidak terdapat data pada linked list." << endl;
+        return;
+    }
+
+    int N;
+    cout << "Masukkan posisi node yang ingin dihapus dari belakang (N): ";
+    cin >> N;
+
+    if (N <= 0) {
+        cout << "Nilai N harus lebih besar dari 0!" << endl;
+        return;
+    }
+
+    int totalNode = 0;
+    TNode *bantu = head;
+    while (bantu != NULL) {
+        totalNode++;
+        bantu = bantu->next;
+    }
+
+    int posisiHapusDariBelakang = N;
+    if (N > totalNode) {
+        posisiHapusDariBelakang = N % totalNode;
+        if (posisiHapusDariBelakang == 0) {
+            posisiHapusDariBelakang = totalNode; 
         }
-        data = hapus->data;
-        if (head->next != NULL){
-            hapus->prev->next = NULL;
-        } else {
-            initH();
+    }
+
+    int targetPosisiDepan = totalNode - posisiHapusDariBelakang + 1;
+
+    bantu = head;
+    for (int i = 1; i < targetPosisiDepan; i++) {
+        bantu = bantu->next;
+    }
+
+    TNode *hapus = bantu;
+    string dataDihapus = hapus->data;
+
+    if (hapus == head) {
+        head = head->next;
+        if (head != NULL) {
+            head->prev = NULL;
         }
-        delete hapus;
-        cout<<"Data \""<<data<<"\" yang berada di belakang telah berhasil dihapus.";
-    }else cout<<"Tidak terdapat data pada Linked List"; 
+    } 
+    else {
+        hapus->prev->next = hapus->next;
+        if (hapus->next != NULL) {
+            hapus->next->prev = hapus->prev;
+        }
+    }
+
+    delete hapus;
+    cout << "Node ke-" << N << " dari belakang (Data: \"" << dataDihapus << "\") berhasil dihapus." << endl;
 }
 
-void hapusBelakangHT(){
-    TNode *hapus;
-    string data;
-    if (isEmptyHT() == 0){
-        hapus = tail;
-        data = hapus->data;
-        if (head->next != NULL){
-            tail = tail->prev;
-            tail->next = NULL;
-        } else {
-            initHT();
+void hapusBelakangHT() {
+    if (isEmptyHT() == 1) {
+        cout << "Tidak terdapat data pada linked list." << endl;
+        return;
+    }
+
+    int N;
+    cout << "Masukkan posisi node yang ingin dihapus dari belakang (N): ";
+    cin >> N;
+
+    if (N <= 0) {
+        cout << "Nilai N harus lebih besar dari 0!" << endl;
+        return;
+    }
+
+    int totalNode = 0;
+    TNode *bantu = head;
+    while (bantu != NULL) {
+        totalNode++;
+        bantu = bantu->next;
+    }
+
+    int posisiHapusDariBelakang = N;
+    if (N > totalNode) {
+        posisiHapusDariBelakang = N % totalNode;
+        if (posisiHapusDariBelakang == 0) {
+            posisiHapusDariBelakang = totalNode;
         }
-        delete hapus;
-        cout<<"Data \""<<data<<"\" yang berada di belakang telah berhasil dihapus.";
-    } else cout<<"Tidak terdapat data pada Linked List";  
+    }
+
+    bantu = tail;
+    for (int i = 1; i < posisiHapusDariBelakang; i++) {
+        bantu = bantu->prev; // Berjalan mundur lewat link prev
+    }
+
+    TNode *hapus = bantu;
+    string dataDihapus = hapus->data;
+
+    if (hapus == head && hapus == tail) {
+        head = NULL;
+        tail = NULL;
+    } 
+    else if (hapus == head) {
+        head = head->next;
+        if (head != NULL) {
+            head->prev = NULL;
+        }
+    } 
+    else if (hapus == tail) {
+        tail = tail->prev;
+        if (tail != NULL) {
+            tail->next = NULL;
+        }
+    } 
+    else {
+        hapus->prev->next = hapus->next;
+        hapus->next->prev = hapus->prev;
+    }
+
+    delete hapus;
+    cout << "Node ke-" << N << " dari belakang (Data: \"" << dataDihapus << "\") berhasil dihapus." << endl;
+}
+
+void clearSelangSelingH() {
+    if (isEmptyH() == 1) {
+        cout << "Linked list sudah kosong." << endl;
+        return;
+    }
+
+    int urutan = 1; 
+    bool hapusDepan = true; 
+
+    cout << "=== MEMULAI PROSES CLEAR SELANG-SELING ===" << endl; [cite: 15]
+
+    while (isEmptyH() != 1) {
+        TNode *hapus = NULL;
+
+        if (hapusDepan) {
+            hapus = head;
+            
+            if (head->next != NULL) {
+                head = head->next;
+                head->prev = NULL;
+            } else {
+                head = NULL; 
+            }
+            
+            hapusDepan = false; 
+        } 
+        else {
+            TNode *bantu = head;
+            while (bantu->next != NULL) {
+                bantu = bantu->next;
+            }
+            hapus = bantu;
+
+            if (hapus->prev != NULL) {
+                hapus->prev->next = NULL;
+            } else {
+                head = NULL;
+            }
+
+            hapusDepan = true;
+        }
+
+        cout << "Penghapusan ke-" << urutan << " : Node bertuliskan \"" 
+             << hapus->data << "\" berhasil dihapus." << endl; [cite: 19]
+
+        delete hapus; 
+        urutan++; 
+    }
+
+    cout << "Linked list berhasil dikosongkan sepenuhnya." << endl;
 }
 
 void clearH(){
@@ -353,4 +673,55 @@ void clearHT(){
     }
     initHT();
     cout<<"Seluruh data pada Linked List telah dibersihkan.";
+}
+
+void clearSelangSelingHT() {
+    if (isEmptyHT() == 1) {
+        cout << "Linked list sudah kosong." << endl;
+        return;
+    }
+
+    int urutan = 1; 
+    bool hapusDepan = true; 
+
+    cout << "=== MEMULAI PROSES CLEAR SELANG-SELING (HT) ===" << endl;
+
+    while (isEmptyHT() != 1) {
+        TNode *hapus = NULL;
+
+        if (hapusDepan) {
+            hapus = head;
+            
+            if (head == tail) {
+                head = NULL;
+                tail = NULL;
+            } else {
+                head = head->next; 
+                head->prev = NULL; 
+            }
+            
+            hapusDepan = false; 
+        } 
+        else {
+            hapus = tail; 
+
+            if (head == tail) {
+                head = NULL;
+                tail = NULL;
+            } else {
+                tail = tail->prev; 
+                tail->next = NULL; 
+            }
+
+            hapusDepan = true;
+        }
+
+        cout << "Penghapusan ke-" << urutan << " : Node bertuliskan \"" 
+             << hapus->data << "\" berhasil dihapus." << endl;
+
+        delete hapus; 
+        urutan++; 
+    }
+
+    cout << "Linked list berhasil dikosongkan sepenuhnya." << endl;
 }
