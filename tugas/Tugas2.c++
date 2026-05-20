@@ -35,6 +35,11 @@ void tampilkanH();
 void tampilkanHT();
 void clearH();
 void clearHT();
+void hapusTargetH();
+void clearSelangSelingH();
+void hapusTargetHT();
+void clearSelangSelingHT();
+
 
 int main()
 {
@@ -351,7 +356,7 @@ void tampilkanHT() {
 
 void hapusTargetH() {
     if (isEmptyH() == 1) {
-        cout << "Tidak terdapat data pada linked list." << endl; [cite: 14]
+        cout << "Tidak terdapat data pada linked list." << endl;
         return;
     }
 
@@ -361,6 +366,7 @@ void hapusTargetH() {
 
     TNode *bantu = head;
     bool ditemukan = false;
+    int indeks = 0;
 
     while (bantu != NULL) {
         TNode *nextNode = bantu->next; 
@@ -382,13 +388,13 @@ void hapusTargetH() {
                 }
             }
             delete hapus;
-            cout << "Data \"" << target << "\" berhasil dihapus." << endl;
-        }
+        cout << "Data \"" << target << "\" pada indeks ke-" << indeks << " berhasil dihapus." << endl;        }
         bantu = nextNode; 
+        indeks++;
     }
 
     if (!ditemukan) {
-        cout << "Data target \"" << target << "\" tidak ditemukan di dalam list!" << endl; [cite: 14]
+        cout << "Data target \"" << target << "\" tidak ditemukan di dalam list!" << endl;
     }
 }
 
@@ -404,6 +410,7 @@ void hapusTargetHT() {
 
     TNode *bantu = head;
     bool ditemukan = false;
+    int indeks = 0;
 
     while (bantu != NULL) {
         TNode *nextNode = bantu->next;
@@ -434,10 +441,10 @@ void hapusTargetHT() {
             }
 
             delete hapus;
-            cout << "Data \"" << target << "\" berhasil dihapus." << endl;
-        }
+        cout << "Data \"" << target << "\" pada indeks ke-" << indeks << " berhasil dihapus." << endl;        }
 
         bantu = nextNode;
+        indeks++;
     }
 
     if (!ditemukan) {
@@ -608,7 +615,7 @@ void clearSelangSelingH() {
     int urutan = 1; 
     bool hapusDepan = true; 
 
-    cout << "=== MEMULAI PROSES CLEAR SELANG-SELING ===" << endl; [cite: 15]
+    cout << "=== MEMULAI PROSES CLEAR SELANG-SELING ===" << endl; 
 
     while (isEmptyH() != 1) {
         TNode *hapus = NULL;
@@ -642,7 +649,7 @@ void clearSelangSelingH() {
         }
 
         cout << "Penghapusan ke-" << urutan << " : Node bertuliskan \"" 
-             << hapus->data << "\" berhasil dihapus." << endl; [cite: 19]
+             << hapus->data << "\" berhasil dihapus." << endl;
 
         delete hapus; 
         urutan++; 
