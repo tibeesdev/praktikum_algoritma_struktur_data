@@ -124,6 +124,22 @@ int binarySearching()
     return 0;
 }
 
+void penjelasan(){
+    clrscr();
+    clrscr();
+    printf("=== PERBEDAAN ALGORITMA SEARCHING ===\n\n");
+    printf("1. Sequential Searching:\n");
+    printf("   - Data tidak perlu diurutkan terlebih dahulu.\n");
+    printf("   - Memeriksa elemen satu per satu secara linear.\n");
+    printf("   - Kelebihan: Cepat jika target ada di awal array.\n");
+    printf("   - Kekurangan: Lambat untuk data akhir/skala besar.\n\n");
+    printf("2. Binary Searching:\n");
+    printf("   - Data harus dalam kondisi terurut baik ascending maupun descending.\n");
+    printf("   - Membagi ruang pencarian menjadi dua secara terus-menerus.\n");
+    printf("   - Kelebihan: Sangat cepat dan efisien untuk data skala besar.\n");
+    printf("   - Kekurangan: Butuh proses tambahan berupa sorting di awal.\n");
+}
+
 int main(){
     int pilih;
     printf("Pilih menu\n");
@@ -139,7 +155,7 @@ int main(){
     } else if (pilih == 2){
         binarySearching();
     } else if (pilih== 3){
-        printf("jelaskan");
+        penjelasan();
     } else if (pilih== 4){
         printf("Program Dihentikan\n");
     }
