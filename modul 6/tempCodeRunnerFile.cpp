@@ -1,7 +1,66 @@
 #include <iostream>
+#include <stdlib.h>
+#include <stdio.h>
+#include <time.h>
+
 using namespace std;
 
-int main()
+int random(int bil)
+{
+    int jumlah = rand()%bil;
+    return jumlah;
+}
+
+void randomize()
+{
+    srand(time(NULL));
+}
+
+void clrscr()
+{
+    system("cls");
+}
+
+int sequentialSearching()
+{
+    clrscr();
+    int data [100];
+    int cari = 20;
+    int counter = 0;
+    int flag = 0;
+    int save;
+    randomize();
+    printf("generating 100 number . . .\n");
+    for (int i = 0; i < 100; i++)
+    {
+        data[i] = random(100) + 1;
+        printf("%d ", data[i]);
+    }
+    printf("\ndone.\n");
+
+    for (int i = 0; i < 100; i++)
+    {
+        if (data[i] == cari)
+        {
+            counter++;
+            flag = 1;
+            save = i;
+        }
+    }
+
+    if (flag == 1)
+    {
+        printf("Data ada, sebanyak %d!\n", counter);
+        printf("pada indeks ke-%d", save);
+    }
+    else
+    {
+        printf("Data tidak ada!\n");
+    }
+}
+
+
+int binarySearching()
 {
     int n, kiri, kanan, tengah, temp, key;
     bool ketemu = false;
@@ -63,4 +122,45 @@ int main()
     else
         cout << "Angka tidak ditemukan!";
     return 0;
+}
+
+void penjelasan(){
+    clrscr();
+    clrscr();
+    printf("=== PERBEDAAN ALGORITMA SEARCHING ===\n\n");
+    printf("1. Sequential Searching:\n");
+    printf("   - Data tidak perlu diurutkan terlebih dahulu.\n");
+    printf("   - Memeriksa elemen satu per satu secara linear.\n");
+    printf("   - Kelebihan: Cepat jika target ada di awal array.\n");
+    printf("   - Kekurangan: Lambat untuk data akhir/skala besar.\n\n");
+    printf("2. Binary Searching:\n");
+    printf("   - Data harus dalam kondisi terurut baik ascending maupun descending.\n");
+    printf("   - Membagi ruang pencarian menjadi dua secara terus-menerus.\n");
+    printf("   - Kelebihan: Sangat cepat dan efisien untuk data skala besar.\n");
+    printf("   - Kekurangan: Butuh proses tambahan berupa sorting di awal.\n");
+}
+
+int main(){
+    int pilih;
+    printf("Pilih menu\n");
+    printf("1. Sequential Searching\n");
+    printf("2. Binary Searching\n");
+    printf("3. Jelaskan Perbedaan Sequential Searching dan Binary Searching!\n");
+    printf("4. Exit\n");
+    printf("Pilih : ");
+    cin >> pilih;
+
+    if(pilih == 1){
+        sequentialSearching();
+    } else if (pilih == 2){
+        binarySearching();
+    } else if (pilih== 3){
+        penjelasan();
+    } else if (pilih== 4){
+        printf("Program Dihentikan\n");
+    }
+    else{
+        printf ("Input menu tidak valid!\n\n");
+    }
+    return 1;
 }
