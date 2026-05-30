@@ -2,8 +2,21 @@
 #include <sstream>
 #include <string>
 #include <vector>
+#include <time.h>
+#include <stdio.h>
 
 using namespace std;
+
+int random(int bil)
+{
+    int jumlah = rand()%bil;
+    return jumlah;
+}
+
+void randomize()
+{
+    srand(time(NULL));
+}
 
 bool binarySearch (int arr[], int left, int N, int target){
 
@@ -56,28 +69,17 @@ int main()
 
     vector<int> array(N);
 
-    cout << "Masukkan Array sebanyak "<< N << " : ";
-
-    for(int i = 0; i < N; i++){
-        cin>> array[i];
-    }
-
-    // buat cek array
-    for(int x : array){
-        cout << x << " ";
+    randomize();
+    printf("generating %d number . . .\n", N);
+    for (int i = 0; i < N; i++)
+    {
+        array[i] = random(100) + 1;
+        printf("%d ", array[i]);
     }
 
     selectionSort(array.data(), N);
 
     cout <<endl;
-
-    // buat cek array
-    for(int x : array){
-        cout << x << " ";
-    }
-
-    cout <<endl;
-
 
     int totalPasangan = 0;
 
