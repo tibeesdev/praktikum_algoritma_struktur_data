@@ -73,7 +73,7 @@ int main()
     printf("generating %d number . . .\n", N);
     for (int i = 0; i < N; i++)
     {
-        array[i] = random(100) + 1;
+        array[i] = random(25) + 1;
         printf("%d ", array[i]);
     }
 
