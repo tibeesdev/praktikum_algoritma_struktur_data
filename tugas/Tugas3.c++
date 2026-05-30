@@ -64,6 +64,13 @@ int main()
     int barisInput;
     int temp;
 
+    // buat test aja
+    // vector<int> array(3);
+    // array[0] = 1;
+    // array[1] = 1;
+    // array[2] = 2;
+
+
     cout<< "Masukkan N dan X: ";
     cin>> N >> X;
 
@@ -85,9 +92,6 @@ int main()
 
     for (int i = 0; i < N-1; i++){
 
-        if (i > 0 && array[i] == array[i - 1]){
-            continue;
-        }
         int angka_pertama = array[i];
         int target = X- angka_pertama;
 
