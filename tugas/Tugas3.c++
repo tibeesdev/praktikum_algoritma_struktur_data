@@ -100,6 +100,6 @@ int main()
         }
 
     }
-    cout <<totalPasangan;
+    cout <<totalPasangan << endl;
 
 }
