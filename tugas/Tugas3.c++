@@ -39,7 +39,6 @@ bool binarySearch (int arr[], int left, int N, int target){
      }
     }
     return false;
-    
 }
 
 void selectionSort (int arr[], int n){
@@ -64,20 +63,12 @@ int main()
     int barisInput;
     int temp;
 
-    // buat test aja
-    // vector<int> array(3);
-    // array[0] = 1;
-    // array[1] = 1;
-    // array[2] = 2;
-
-
     cout<< "Masukkan N dan X: ";
     cin>> N >> X;
 
     vector<int> array(N);
 
     randomize();
-    printf("generating %d number . . .\n", N);
     for (int i = 0; i < N; i++)
     {
         array[i] = random(25) + 1;
@@ -100,6 +91,5 @@ int main()
         }
 
     }
-    cout <<totalPasangan << endl;
-
+    cout << "Total pasangan angka yang bernilai " << X << " adalah : " <<totalPasangan << endl;
 }
