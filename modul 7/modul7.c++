@@ -37,7 +37,7 @@ void preOrder(Node *root)
 {
     if (root != NULL)
     {
-        cout << root->data;
+        cout << root->data << " ";
         preOrder(root->kiri);
         preOrder(root->kanan);
     }
@@ -47,9 +47,9 @@ void inOrder(Node *root)
 {
     if (root != NULL)
     {
-        preOrder(root->kiri);
-        cout << root->data;
-        preOrder(root->kanan);
+        inOrder(root->kiri);
+        cout << root->data << " ";
+        inOrder(root->kanan);
     }
 }
 
@@ -57,9 +57,9 @@ void postOrder(Node *root)
 {
     if (root != NULL)
     {
-        preOrder(root->kiri);
-        preOrder(root->kanan);
-        cout << root->data;
+        postOrder(root->kiri);
+        postOrder(root->kanan);
+        cout << root->data << " ";
     }
 }
 
