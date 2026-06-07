@@ -109,7 +109,7 @@ int main(){
 
         int hasilJarakTerjauh = cariJarakTerjauh(pohonBST);
 
-        cout << hasilJarakTerjauh << "\n";
+        cout <<"Hasil Perhitungan jarak terjauh adalah : "<< hasilJarakTerjauh << "\n";
     }
     return 0;
 }

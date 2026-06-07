@@ -1,96 +1,115 @@
 #include <iostream>
-#include <sstream>
-#include <string>
-#include <vector>
-#include <time.h>
-#include <stdio.h>
 
 using namespace std;
 
-int random(int bil)
+struct Node
 {
-    int jumlah = rand()%bil;
-    return jumlah;
-}
+    int data;
+    Node* kiri;
+    Node* kanan;
+};
 
-void randomize()
-{
-    srand(time(NULL));
-}
-
-bool binarySearch (int arr[], int left, int N, int target){
-
-    int right = N-1;
-    
-    while (left <= right)
+Node* tambah(Node* root, int data){
+    if (root == NULL)
     {
-     int mid =  left + (right - left) / 2;
-
-     if (arr[mid] == target)
-     {
-        return true;
-     }
-     else if (target < arr[mid])
-     {
-        right = mid - 1;
-     }
-     else{
-        left = mid + 1;
-     }
+        Node* baru = new Node;
+        baru->data = data;
+        baru->kiri = NULL;
+        baru->kanan = NULL;
+        return baru;
     }
-    return false;
+    if (data < root->data)
+    {
+        root->kiri = tambah(root->kiri, data);
+    } else if (data > root->data)
+    {
+        root->kanan = tambah(root->kanan, data);
+    }
+    return root;
 }
 
-void selectionSort (int arr[], int n){
-    for (int i = 0; i < n-1; i++){
-        int minidx = i;
-        for (int j = i+1; j < n; j++)
+int hitungTinggi(Node* node){
+    if (node == NULL){
+        return 0;
+    }
+    if (node->kiri == NULL && node->kanan == NULL){
+        return 0;
+    }
+
+    int tinggiKiri = 0;
+    if (node->kiri != NULL)
+    {
+        tinggiKiri = 1 + hitungTinggi(node->kiri);
+    }
+
+    int tinggiKanan = 0;
+    if (node->kanan != NULL)
+    {
+        tinggiKanan = 1 + hitungTinggi(node->kanan);
+    }
+
+    if (tinggiKiri > tinggiKanan)
+    {
+        return tinggiKiri;
+    } else{
+        return tinggiKanan;
+    }   
+}
+
+int cariJarakTerjauh(Node* root){
+    if (root == NULL)
+    {
+        return 0;
+    }
+
+    int tinggiKiri = 0;
+    if (root->kiri != NULL)
+    {
+        tinggiKiri = 1 + hitungTinggi(root->kiri);
+    }
+
+    int tinggiKanan = 0;
+    if (root->kanan != NULL)
+    {
+        tinggiKanan = 1 + hitungTinggi(root->kanan);
+    }
+
+    int jarakMelaluiRootSekarang = tinggiKiri + tinggiKanan;
+
+    int jarakMaksKiri = cariJarakTerjauh(root->kiri);
+    int jarakMaksKanan = cariJarakTerjauh(root->kanan);
+
+    int nilaiMaksimal = jarakMelaluiRootSekarang;
+
+    if (jarakMaksKiri > nilaiMaksimal)
+    {
+        nilaiMaksimal = jarakMaksKiri;
+    }
+    if (jarakMaksKanan > nilaiMaksimal)
+    {
+        nilaiMaksimal = jarakMaksKanan;
+    }
+    return nilaiMaksimal;
+}
+
+int main(){
+    int jumlahElemen = 0;
+
+    printf("Masukkan panjang data : ");
+    if(cin >> jumlahElemen){
+        Node* pohonBST = NULL;
+        int nilaiData = 0;
+
+        printf("Masukkan data sebanyak %d dipisah dengan spasi : ", jumlahElemen);
+        for (int i = 0; i < jumlahElemen; i++)
         {
-            if (arr[j] < arr[minidx])
-            {
-                minidx = j;
-            }
-        }
-        int temp = arr[i];
-        arr[i] = arr[minidx];
-        arr[minidx] = temp;
-    }
-}
-
-int main()
-{
-    int N, X;
-    int barisInput;
-    int temp;
-
-    cout<< "Masukkan N dan X: ";
-    cin>> N >> X;
-
-    vector<int> array(N);
-
-    randomize();
-    printf("generating %d number . . .\n", N);
-    for (int i = 0; i < N; i++)
-    {
-        array[i] = random(25) + 1;
-        printf("%d ", array[i]);
-    }
-
-    selectionSort(array.data(), N);
-
-    cout <<endl;
-
-    int totalPasangan = 0;
-
-    for (int i = 0; i < N-1; i++){
-
-        int angka_pertama = array[i];
-        int target = X- angka_pertama;
-
-        if(binarySearch(array.data(), i + 1, N, target)){
-            totalPasangan++;
+            cin >> nilaiData;
+            pohonBST = tambah(pohonBST, nilaiData);
         }
 
+        int hasilJarakTerjauh = cariJarakTerjauh(pohonBST);
+
+        cout << hasilJarakTerjauh << "\n";
     }
-    cout <<totalPasangan << endl;
+    return 0;
 }
