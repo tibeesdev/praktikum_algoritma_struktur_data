@@ -95,10 +95,12 @@ int cariJarakTerjauh(Node* root){
 int main(){
     int jumlahElemen = 0;
 
+    printf("Masukkan panjang data : ");
     if(cin >> jumlahElemen){
         Node* pohonBST = NULL;
         int nilaiData = 0;
 
+        printf("Masukkan data sebanyak %d dipisah dengan spasi : ", jumlahElemen);
         for (int i = 0; i < jumlahElemen; i++)
         {
             cin >> nilaiData;
